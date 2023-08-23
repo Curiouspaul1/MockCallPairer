@@ -53,10 +53,14 @@ def gen_pairs():
     pairs = []
     for i in range(1,3):
         final.extend(fetch_users(i))
-
+    print(final, len(final))
     check = []
     while final:
-        pair = random.sample(final, k=2)
+        try:
+            pair = random.sample(final, k=2)
+        except ValueError:
+            print('Not enough values')
+            break
         pairs.append(pair)
         check.append(pair)
         for p in pair:

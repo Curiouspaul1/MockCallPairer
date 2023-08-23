@@ -34,7 +34,7 @@ def root():
     pairs = read_file()
     if not pairs:
         print('Generating pairs...')
-        pairs = read_file()
+        pairs = update_file()
     return render_template('index.html', pairs=pairs)
 
 
