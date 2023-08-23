@@ -3,7 +3,6 @@ from flask import (
     Flask, session, current_app,
     g
 )
-from flask_session import Session
 from flask_apscheduler import APScheduler
 from utils import gen_pairs, update_file, read_file
 from dotenv import load_dotenv
