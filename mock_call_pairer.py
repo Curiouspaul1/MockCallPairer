@@ -34,13 +34,14 @@ def root():
     pairs = read_file()
     if not pairs:
         print('Generating pairs...')
-        pairs = update_file()
+        update_file()
+        pairs = read_file()
     return render_template('index.html', pairs=pairs)
 
 
 @app.get('/refresh')
 def rfsh():
-    res = gen_pairs()
+    update_file()
 
     return 'ok', 200
 
