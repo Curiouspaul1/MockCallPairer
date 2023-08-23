@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MockCall Pairings</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,300;0,400;0,700;1,100;1,500&family=Sedgwick+Ave+Display&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,300;0,400;0,700;1,100;1,500&family=Sedgwick+Ave+Display&family=Tektur&display=swap');
+        *{
+            font-family: 'Tektur', cursive;
+        }
+        body {
+            background-color: #121212;
+        }
+        .container {
+            width: 80%;
+            margin:0 auto;
+        }
+        #pairs div {
+            list-style-type: square;
+            color: #f4f4f4;
+            font-size: 18px;
+            padding: 5px;
+            border-radius: 5px;
+            border: 1px solid #49baf3;
+            transition: ease-in-out;
+            transition-duration: 150ms;
+        }
+        #pairs div:hover{
+            transform: scale(.8);
+            cursor:  pointer;
+        }
+        #pairs {
+            border-radius: 10px;
+            margin-top: 5%;
+            background-color: rgb(31, 37, 82);
+            padding: 5%;
+            display: grid;
+            gap: 15px;
+            grid-template-columns: 1fr 1fr;
+            box-shadow: 3px 3px 5px #49baf3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div id="pairs">
+            {% for item in pairs %}
+                <div>{{item[0]}} --- {{item[1]}}</div>
+            {% endfor %}
+        </div>
+    </div>
+    
+</body>
+</html>
