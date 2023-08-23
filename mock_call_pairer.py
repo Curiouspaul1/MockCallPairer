@@ -20,8 +20,6 @@ logging.getLogger('apscheduler').setLevel(logging.DEBUG)
 
 app = Flask(__name__)
 
-
-Session(app)
 sched = APScheduler()
 sched.init_app(app)
 
