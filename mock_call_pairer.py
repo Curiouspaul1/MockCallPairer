@@ -23,7 +23,7 @@ app = Flask(__name__)
 sched = APScheduler()
 sched.init_app(app)
 
-@sched.task('interval', id='refresh_pairings', minutes=1, max_instances=1)
+@sched.task('interval', id='refresh_pairings', weeks=1, max_instances=1)
 def refresh_pairings():
     update_file()
 
