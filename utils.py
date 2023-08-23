@@ -79,6 +79,3 @@ def read_file():
             if n and n[0].lower() != 'persona':
                 res.append(n)
     return res
-
-
-update_file()
