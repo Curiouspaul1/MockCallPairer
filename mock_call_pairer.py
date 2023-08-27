@@ -4,13 +4,19 @@ from flask import (
     g
 )
 from flask_apscheduler import APScheduler
-from utils import gen_pairs, update_file, read_file
+from utils import (
+    gen_pairs,
+    update_file,
+    read_file,
+    get_topic
+)
 from dotenv import load_dotenv
-from pytz import utc
+from pytz import timezone
 import time
 import pprint
 import os
 import requests
+
 
 import logging
 
@@ -23,7 +29,14 @@ app = Flask(__name__)
 sched = APScheduler()
 sched.init_app(app)
 
-@sched.task('interval', id='refresh_pairings', weeks=1, max_instances=1)
+@sched.task(
+    'cron',
+    id='refresh_pairings',
+    day_of_week='sun',
+    max_instances=1,
+    hour=0,
+    timezone=timezone('Africa/Lagos')
+)
 def refresh_pairings():
     update_file()
 
@@ -32,15 +45,20 @@ sched.start()
 @app.get('/')
 def root():
     pairs = read_file()
+    topic = get_topic()
     if not pairs:
         print('Generating pairs...')
         update_file()
         pairs = read_file()
-    return render_template('index.html', pairs=pairs)
+    return render_template('index.html', pairs=pairs, topic=topic)
 
 
 @app.get('/refresh')
 def rfsh():
+    topic = request.args.get('topic')
+    if topic:
+        with open('topic.txt', 'w') as file:
+            file.write(topic)
     update_file()
 
     return 'ok', 200

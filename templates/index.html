@@ -16,6 +16,7 @@
         .container {
             width: 80%;
             margin:0 auto;
+            color: #f4f4f4;
         }
         #pairs div {
             list-style-type: square;
@@ -52,6 +53,7 @@
 </head>
 <body>
     <div class="container">
+        <h2>Topic For The Week: {{topic}}</h2>
         <div id="pairs">
             {% for item in pairs %}
                 <div>{{item[0]}} --- {{item[1]}}</div>

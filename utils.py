@@ -21,7 +21,7 @@ def fetch_collaborators(page=1):
         }
     )
     if resp.status_code == 200:
-        print(len(resp.json()))
+        # print(len(resp.json()))
         res = [
             obj['login']
             for obj in resp.json()
@@ -45,15 +45,16 @@ def fetch_users(page=1):
         for name in res:
             if usr.lower().strip() == name['gh'].lower():
                 toPair.append(name['wh'])
-
     return toPair
+
+# fetch_users(1)
+# fetch_users(2)
 
 def gen_pairs():
     final = []
     pairs = []
     for i in range(1,3):
         final.extend(fetch_users(i))
-    print(final, len(final))
     check = []
     while final:
         try:
@@ -83,3 +84,12 @@ def read_file():
             if n and n[0].lower() != 'persona':
                 res.append(n)
     return res
+
+
+def get_topic():
+    res = ''
+    with open('topic.txt', 'r') as file:
+        res += str(file.read())
+    return res
+
+print(get_topic())
