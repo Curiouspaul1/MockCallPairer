@@ -63,5 +63,13 @@ def rfsh():
 
     return 'ok', 200
 
+@app.get('/change_topic')
+def change_topic():
+    topic = request.args.get('topic')
+    if topic:
+        with open('topic.txt', 'w') as file:
+            file.write(topic)
+    return 'ok', 200
+
 if __name__ == '__main__':
     app.run(debug=True, port=5050)
