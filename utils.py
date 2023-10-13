@@ -1,4 +1,5 @@
 from dotenv import load_dotenv
+from datetime import datetime
 import requests
 import os
 import csv
@@ -50,7 +51,10 @@ def fetch_users(page=1):
 # fetch_users(1)
 # fetch_users(2)
 
-def gen_pairs():
+def gen_pairs(week_number=None):
+    if week_number is None:
+        week_number = datetime.now().isocalendar()[1]
+    random.seed(week_number)
     final = []
     pairs = []
     for i in range(1,3):
