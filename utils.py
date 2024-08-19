@@ -10,6 +10,7 @@ owner, repo = os.getenv('OWNER'), os.getenv('REPO')
 token = os.getenv('GITHUB_TOKEN')
 BASE_URL = os.getenv('GH_URL')
 
+
 def fetch_collaborators(page=1):
     _path = f'repos/{owner}/{repo}/collaborators?page={page}'
     resp = requests.get(
@@ -31,6 +32,7 @@ def fetch_collaborators(page=1):
     else:
         print(resp.status_code, resp.content)
 
+
 def fetch_users(page=1):
     res = []
     ghUsers = fetch_collaborators(page)
@@ -39,8 +41,13 @@ def fetch_users(page=1):
     with open('data.csv', 'r') as data:
         mdata = csv.reader(data)
         for row in mdata:
-            res.append({'gh': row[3].lower().strip(), 'wh': row[4]})
-    
+            res.append(
+                {
+                    'gh': row[3].lower().strip(),
+                    'wh': row[4]
+                }
+            )
+
     for usr in ghUsers:
         for name in res:
             if usr.lower().strip() == name['gh'].lower():
@@ -50,10 +57,11 @@ def fetch_users(page=1):
 # fetch_users(1)
 # fetch_users(2)
 
+
 def gen_pairs():
     final = []
     pairs = []
-    for i in range(1,3):
+    for i in range(1, 3):
         final.extend(fetch_users(i))
     check = []
     while final:
@@ -68,6 +76,7 @@ def gen_pairs():
             final.remove(p)
     return pairs
 
+
 def update_file():
     with open('output.csv', 'w') as file:
         writer = csv.writer(file)
@@ -75,6 +84,7 @@ def update_file():
         _all = gen_pairs()
         for n in _all:
             writer.writerow(n)
+
 
 def read_file():
     with open('output.csv', 'r') as data:
@@ -91,5 +101,6 @@ def get_topic():
     with open('topic.txt', 'r') as file:
         res += str(file.read())
     return res
+
 
 print(get_topic())
