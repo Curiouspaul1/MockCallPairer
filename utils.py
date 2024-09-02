@@ -47,15 +47,24 @@ def fetch_users(page=1):
                     'wh': row[4]
                 }
             )
+    # print(ghUsers, len(ghUsers))
+    ghUsers = set(ghUsers)
+    check_ = ghUsers.copy()
 
     for usr in ghUsers:
+        curr = usr.lower().strip()
+
         for name in res:
-            if usr.lower().strip() == name['gh'].lower():
+            if curr == name['gh'].lower():
                 toPair.append(name['wh'])
+                check_.remove(usr)
+    if check_:
+        print(check_)
     return toPair
 
-# fetch_users(1)
-# fetch_users(2)
+# print(fetch_users(1))
+# print('BATCH 2')
+# print(fetch_users(2))
 
 
 def gen_pairs():
@@ -103,4 +112,4 @@ def get_topic():
     return res
 
 
-print(get_topic())
+# print(get_topic())
