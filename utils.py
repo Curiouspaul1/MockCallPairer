@@ -32,13 +32,13 @@ def fetch_collaborators(page=1):
     else:
         print(resp.status_code, resp.content)
 
-
 def fetch_users(page=1):
     res = []
     ghUsers = fetch_collaborators(page)
+    print(ghUsers)
     toPair = []
     # print('2', len(ghUsers))
-    with open('data.csv', 'r') as data:
+    with open('data.csv', 'r', encoding='utf-8') as data:
         mdata = csv.reader(data)
         for row in mdata:
             res.append(
@@ -50,6 +50,7 @@ def fetch_users(page=1):
     # print(ghUsers, len(ghUsers))
     ghUsers = set(ghUsers)
     check_ = ghUsers.copy()
+    check_2 = set([obj['gh'] for obj in res])
 
     for usr in ghUsers:
         curr = usr.lower().strip()
@@ -58,13 +59,20 @@ def fetch_users(page=1):
             if curr == name['gh'].lower():
                 toPair.append(name['wh'])
                 check_.remove(usr)
-    if check_:
-        print(check_)
+    #             check_2.remove(name['gh'])
+    # if check_2:
+    #     resp = []
+    #     for obj in res:
+    #         if obj['gh'] in check_2:
+    #             resp.append(obj['wh'])
+    #     # print(resp)
+    print(len(ghUsers), len(toPair))
+    print(check_)
     return toPair
 
-# print(fetch_users(1))
-# print('BATCH 2')
-# print(fetch_users(2))
+print(fetch_users(1))
+# # # print('BATCH 2')
+print(fetch_users(2))
 
 
 def gen_pairs():
