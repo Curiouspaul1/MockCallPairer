@@ -16,3 +16,4 @@ Werkzeug
 zipp
 gunicorn
 Flask-APScheduler
+pytz
